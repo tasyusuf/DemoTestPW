@@ -43,7 +43,7 @@ jobs:
         run: npx playwright test
         env:
           CI: true
-          BASE_URL: ${{ secrets.BASE_URL || 'https://example.com' }}
+          BASE_URL: ${{ secrets.BASE_URL || 'https://the-internet.herokuapp.com' }}
 
       - name: Upload Playwright Report
         if: always()
