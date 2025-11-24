@@ -191,8 +191,19 @@ Run tests in Docker containers for consistency across environments.
 ### Quick Start with Docker
 
 ```bash
-# Using Docker Compose (recommended)
-docker-compose up --build
+# 🌟 EASIEST: Run tests + view report (one command)
+npm run docker:full
+
+# Or step-by-step:
+
+# 1. Run tests in Docker
+npm run docker:test
+# or: docker-compose up --build
+
+# 2. View Allure report
+npm run docker:report
+
+# Alternative Docker commands:
 
 # Run in background
 docker-compose up -d
@@ -249,14 +260,31 @@ docker-compose up
 
 ### View Reports After Docker Run
 
-Reports are automatically saved to your local folders:
+Reports are automatically saved to your local folders via Docker volumes:
 
 ```bash
-# View Playwright report
-npx playwright show-report
+# 🌟 RECOMMENDED: Run Docker tests + view Allure report (one command)
+npm run docker:full
 
-# View Allure report
-allure serve allure-results
+# Or step-by-step:
+
+# 1. Run tests in Docker
+npm run docker:test
+# or: docker-compose up --build
+
+# 2. Generate & view Allure report
+npm run docker:report
+# or: npm run allure:generate && npm run allure:open
+
+# View Playwright report
+npm run report
+# or: npx playwright show-report
+
+# Generate Allure HTML report only
+npm run allure:generate
+
+# Open existing Allure report
+npm run allure:open
 ```
 
 ### Benefits of Docker

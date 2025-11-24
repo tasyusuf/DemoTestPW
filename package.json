@@ -11,7 +11,12 @@
     "test:e2e": "playwright test tests/e2e",
     "test:api": "playwright test tests/api",
     "report": "playwright show-report",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
     "allure:serve": "allure serve allure-results",
+    "docker:test": "docker-compose up --build",
+    "docker:report": "npm run allure:generate && npm run allure:open",
+    "docker:full": "docker-compose up --build && npm run allure:generate && npm run allure:open",
     "clean": "rm -rf test-results playwright-report allure-results allure-report",
     "install:browsers": "playwright install chrome"
   },
