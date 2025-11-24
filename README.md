@@ -335,6 +335,7 @@ Feel free to extend this framework with additional features:
 - [FRAMEWORK_EXPLANATION.md](FRAMEWORK_EXPLANATION.md) - **Deep dive into architecture** (Start here!)
 - [CONFIG_EXPLAINED.md](CONFIG_EXPLAINED.md) - **Configuration explained** (Simple & practical)
 - [CI_EXPLAINED.md](CI_EXPLAINED.md) - **CI/CD with GitHub Actions** (Automated testing)
+- [WORKFLOW_EXPLAINED.md](WORKFLOW_EXPLAINED.md) - **Workflow file line-by-line** (How playwright.yml works)
 - [QUICKSTART.md](QUICKSTART.md) - Quick start guide for interviews
 - [PATTERNS.md](PATTERNS.md) - Common code patterns and examples
 - [COMMANDS_CHEATSHEET.md](COMMANDS_CHEATSHEET.md) - Essential commands reference
