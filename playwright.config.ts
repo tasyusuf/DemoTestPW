@@ -52,8 +52,9 @@ export default defineConfig({
     // Base URL for navigation
     baseURL: process.env.BASE_URL || 'https://example.com',
     
-    // Browser channel (use Chrome)
-    channel: 'chrome',
+    // Browser channel: Chrome locally (macOS), Chromium in Docker/CI
+    // In Docker, we use Chromium because Chrome is not ARM64 compatible
+    channel: process.env.CI ? undefined : 'chrome',
     
     // Viewport: maximized locally, 1920x1080 in CI
     viewport: process.env.CI ? { width: 1920, height: 1080 } : null,
@@ -78,12 +79,15 @@ export default defineConfig({
   },
 
   // Projects (browsers)
-  // By default: Chrome only
+  // By default: Chrome only (locally), Chromium in Docker/CI
   // Uncomment others if needed for cross-browser testing
   projects: [
     {
       name: 'chromium',
-      use: { channel: 'chrome' },
+      use: { 
+        // Use Chrome locally (macOS), Chromium in Docker/CI (ARM64 compatible)
+        ...(process.env.CI ? {} : { channel: 'chrome' })
+      },
     },
     
     // Uncomment for Firefox testing

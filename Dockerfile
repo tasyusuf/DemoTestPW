@@ -9,8 +9,8 @@ COPY package*.json ./
 # Install dependencies
 RUN npm ci
 
-# Install Playwright Chrome only (faster)
-RUN npx playwright install chrome --with-deps
+# Install Playwright Chromium (ARM64 compatible)
+RUN npx playwright install chromium --with-deps
 
 # Copy project files
 COPY . .
