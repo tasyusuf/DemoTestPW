@@ -11,6 +11,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Grant write permissions to GitHub Actions
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   test:
     name: Run Playwright Tests
