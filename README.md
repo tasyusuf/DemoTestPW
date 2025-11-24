@@ -1,206 +1,325 @@
 # Playwright TypeScript E2E Testing Framework
 
-A comprehensive end-to-end testing framework built with Playwright and TypeScript, featuring Page Object Model, Allure reporting, Docker support, and CI/CD integration.
+A production-ready end-to-end testing framework built with Playwright and TypeScript, featuring Page Object Model, Allure reporting, Docker support, and CI/CD integration.
+
+[![Playwright Tests](https://github.com/tasyusuf/DemoTestPW/actions/workflows/playwright.yml/badge.svg)](https://github.com/tasyusuf/DemoTestPW/actions/workflows/playwright.yml)
+
+**📊 Live Test Report:** https://tasyusuf.github.io/DemoTestPW/
+
+---
+
+## 📖 Table of Contents
+
+- [Quick Start](#-quick-start)
+- [What is This Framework?](#-what-is-this-framework)
+- [Project Structure](#-project-structure)
+- [Installation](#-installation)
+- [Running Tests](#-running-tests)
+- [Viewing Reports](#-viewing-reports)
+- [Configuration](#-configuration)
+- [CI/CD](#-cicd)
+- [Writing Tests](#-writing-tests)
+- [Best Practices](#-best-practices)
+- [Interview Preparation](#-interview-preparation)
+- [Troubleshooting](#-troubleshooting)
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/tasyusuf/DemoTestPW.git
+cd DemoTestPW
+
+# Install dependencies
+npm install
+
+# Install Playwright Chrome
+npx playwright install chrome
+
+# Run tests
+npx playwright test
+
+# View report
+npx playwright show-report
+```
+
+---
 
 ## 📖 What is This Framework?
 
 This is a **production-ready test automation framework** designed for:
-- **Web application testing** using Playwright (supports Chrome, Firefox, Safari, Edge)
-- **API testing** with built-in HTTP client
-- **Mobile testing** with device emulation
-- **Cross-browser testing** in parallel
-- **Visual testing** with screenshots and videos
-- **CI/CD integration** for automated testing pipelines
+- ✅ **Web application testing** using Playwright (Chrome, Firefox, Safari, Edge)
+- ✅ **API testing** with built-in HTTP client
+- ✅ **Mobile testing** with device emulation
+- ✅ **Cross-browser testing** in parallel
+- ✅ **Visual testing** with screenshots and videos
+- ✅ **CI/CD integration** for automated testing pipelines
 
-### Key Concepts Explained:
+### Key Technologies
 
-- **Playwright**: Modern browser automation tool by Microsoft, faster and more reliable than Selenium
+- **Playwright**: Modern browser automation tool by Microsoft - faster and more reliable than Selenium
 - **TypeScript**: Adds type safety to JavaScript, catches errors before runtime
-- **Page Object Model (POM)**: Design pattern that creates an object repository for web elements, making tests maintainable
-- **Allure Report**: Beautiful, interactive test reports with charts, graphs, and detailed test execution data
-- **Fixtures**: Reusable test setup/teardown logic (like "beforeEach" but more powerful)
-- **Docker**: Containerizes tests so they run the same way on any machine
-- **CI/CD**: Automated testing in GitHub Actions - tests run automatically on every code push
+- **Page Object Model (POM)**: Design pattern for maintainable tests
+- **Allure Report**: Beautiful, interactive test reports with charts and graphs
+- **GitHub Actions**: Automated CI/CD pipeline
+- **Docker**: Containerized tests for consistency
 
-## 🚀 Features
-
-- ✅ **Playwright** - Modern, fast, and reliable browser automation
-- ✅ **TypeScript** - Type-safe test development
-- ✅ **Page Object Model (POM)** - Maintainable test architecture
-- ✅ **Allure Reports** - Beautiful and detailed test reports
-- ✅ **Multi-browser Support** - Chrome, Firefox, Safari, Mobile browsers
-- ✅ **Docker Support** - Containerized test execution
-- ✅ **CI/CD Ready** - GitHub Actions workflow included
-- ✅ **API Testing** - Built-in API testing capabilities
-- ✅ **Custom Fixtures** - Reusable test setup and teardown
-- ✅ **Test Data Management** - Centralized test data
+---
 
 ## 📁 Project Structure
 
 ```
 DemoTest/
 ├── pages/                  # Page Object Models
-│   ├── BasePage.ts
-│   ├── LoginPage.ts
-│   └── HomePage.ts
-├── utils/                  # Utility functions
-│   ├── helpers.ts
-│   └── logger.ts
-├── fixtures/               # Custom test fixtures
-│   └── test-fixtures.ts
-├── data/                   # Test data
-│   └── test-data.ts
+│   ├── BasePage.ts        # Base class with common functionality
+│   ├── LoginPage.ts       # Example login page
+│   └── HomePage.ts        # Example home page
+│
+├── fixtures/              # Test fixtures (setup/teardown)
+│   └── test-fixtures.ts   # Custom fixtures for tests
+│
+├── utils/                 # Helper functions
+│   ├── helpers.ts        # Utility functions
+│   └── logger.ts         # Logging utility
+│
+├── data/                  # Test data
+│   └── test-data.ts      # Centralized test data
+│
 ├── tests/
-│   ├── e2e/                # End-to-end tests
-│   │   ├── example.spec.ts
-│   │   └── demo.spec.ts
-│   └── api/                # API tests
+│   ├── e2e/              # End-to-end tests
+│   │   ├── demo.spec.ts  # Working demo tests
+│   │   └── example.spec.ts # Template tests (skipped)
+│   └── api/              # API tests
 │       └── api-example.spec.ts
-├── playwright.config.ts    # Playwright configuration
-├── tsconfig.json          # TypeScript configuration
-├── Dockerfile             # Docker configuration
-├── docker-compose.yml     # Docker Compose setup
+│
+├── playwright.config.ts   # Playwright configuration
+├── tsconfig.json         # TypeScript configuration
+├── Dockerfile            # Docker container setup
+├── docker-compose.yml    # Docker Compose configuration
 └── .github/
     └── workflows/
         └── playwright.yml # CI/CD workflow
-
 ```
 
-## 🛠️ Setup Instructions
+### Why This Structure?
+
+- **Separation of concerns** - Each folder has a specific purpose
+- **Easy to navigate** - New team members can find things quickly
+- **Scalable** - Easy to add new pages, tests, or utilities
+- **Maintainable** - Changes in one area don't affect others
+
+---
+
+## 🛠️ Installation
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
+- Node.js v18 or higher
 - npm or yarn
-- Allure (already installed on your system)
+- Allure (optional, for local reporting)
 
-### Installation
+### Steps
 
-1. **Install dependencies:**
+1. **Clone and install:**
    ```bash
+   git clone https://github.com/tasyusuf/DemoTestPW.git
+   cd DemoTestPW
    npm install
    ```
 
 2. **Install Playwright browsers:**
    ```bash
-   npm run install:browsers
+   npx playwright install chrome
    ```
 
-3. **Create environment file:**
-   Copy the environment example and configure:
+3. **Verify installation:**
    ```bash
-   cp .env.example .env
+   npx playwright test tests/e2e/demo.spec.ts
    ```
-   Edit `.env` with your configuration.
+
+---
 
 ## 🧪 Running Tests
 
-### Playwright Commands (Recommended)
+### Essential Commands
 
 ```bash
 # Run all tests
 npx playwright test
 
-# Run tests in headed mode (see browser)
+# Run with visible browser (headed mode)
 npx playwright test --headed
 
-# Run tests in UI mode (interactive - BEST for development)
+# Run in UI mode (BEST - interactive debugging)
 npx playwright test --ui
 
-# Debug tests
-npx playwright test --debug
+# Debug a specific test
+npx playwright test tests/e2e/demo.spec.ts --debug
 
 # Run specific browser
 npx playwright test --project=chromium
-npx playwright test --project=firefox
-npx playwright test --project=webkit
 
-# Run specific test file
-npx playwright test tests/e2e/demo.spec.ts
-
-# Run specific test by name
+# Run by test name
 npx playwright test -g "should login successfully"
-
-# Run tests in specific folder
-npx playwright test tests/e2e
-npx playwright test tests/api
 
 # Run with trace for debugging
 npx playwright test --trace on
-
-# Run failed tests only
-npx playwright test --last-failed
 ```
 
-### NPM Scripts (Shortcuts)
+### Test Types
 
 ```bash
-# If you prefer shorter commands, these npm scripts are available:
-npm test                 # = npx playwright test
-npm run test:headed      # = npx playwright test --headed
-npm run test:ui          # = npx playwright test --ui
-npm run test:debug       # = npx playwright test --debug
-npm run test:chromium    # Run chromium only
-npm run test:firefox     # Run firefox only
-npm run test:webkit      # Run webkit only
-npm run test:mobile      # Run mobile browsers
-npm run test:e2e         # Run e2e tests only
-npm run test:api         # Run api tests only
+# E2E tests only
+npx playwright test tests/e2e
+
+# API tests only
+npx playwright test tests/api
+
+# Specific file
+npx playwright test tests/e2e/demo.spec.ts
 ```
 
-### Viewing Reports
+---
+
+## 📊 Viewing Reports
+
+### Playwright HTML Report
 
 ```bash
-# View Playwright HTML report
+# View after test run
 npx playwright show-report
-
-# Allure reports
-allure serve allure-results           # Generate and serve
-allure generate allure-results --clean # Generate only
-allure open allure-report             # Open existing report
-
-# Or use npm shortcuts
-npm run report           # = npx playwright show-report
-npm run allure:serve     # = allure serve allure-results
 ```
 
-### Clean up
+**Features:**
+- Screenshots on failure
+- Videos on failure
+- Test traces
+- Execution timeline
+
+### Allure Report
 
 ```bash
-# Clean all reports and results
-rm -rf test-results playwright-report allure-results allure-report
+# Generate and serve (if Allure installed locally)
+allure serve allure-results
 
-# Or use npm script
-npm run clean
+# Or download from CI artifacts and run:
+allure serve ~/Downloads/allure-results
 ```
 
-## 🐳 Docker Usage
+**Features:**
+- Beautiful interactive UI
+- Charts and graphs
+- Historical trends
+- Detailed test steps
 
-### Build and run with Docker
+### Live Report (CI)
 
-```bash
-# Build Docker image
-docker build -t playwright-tests .
+**View deployed report:** https://tasyusuf.github.io/DemoTestPW/
 
-# Run tests in Docker
-docker run --rm playwright-tests
+This updates automatically on every push to `main`.
 
-# Run with Docker Compose
-docker-compose up --build
+---
 
-# Run specific tests
-docker-compose run playwright-tests npm run test:chromium
-```
+## ⚙️ Configuration
 
-## 🎯 Writing Tests
-
-### Example Test with Page Objects
+### playwright.config.ts
 
 ```typescript
-import { test, expect } from '../../fixtures/test-fixtures';
-import { TestUsers } from '../../data/test-data';
+// Key settings explained:
 
-test('should login successfully', async ({ loginPage, homePage }) => {
+timeout: 45_000              // 45 seconds per test
+workers: process.env.CI ? 3 : 1  // 3 workers in CI, 1 locally
+retries: process.env.CI ? 1 : 0  // Retry once in CI
+channel: 'chrome'            // Use Google Chrome
+```
+
+### Local vs CI Differences
+
+| Setting | Local | CI | Why? |
+|---------|-------|-----|------|
+| Workers | 1 | 3 | Debug vs Speed |
+| Retries | 0 | 1 | Catch bugs vs Handle flakes |
+| Viewport | Maximized | 1920x1080 | Natural vs Consistent |
+| Browser | Chrome | Chrome | Fast and reliable |
+
+### Environment Variables
+
+Create `.env` file (not in repo):
+
+```bash
+BASE_URL=https://your-app.com
+TEST_USERNAME=testuser
+TEST_PASSWORD=testpass
+```
+
+Update in `playwright.config.ts`:
+```typescript
+baseURL: process.env.BASE_URL || 'https://example.com'
+```
+
+---
+
+## 🚀 CI/CD
+
+### GitHub Actions Workflow
+
+**Location:** `.github/workflows/playwright.yml`
+
+**Triggers:**
+- Push to `main` branch
+- Pull requests to `main`
+- Manual trigger from Actions tab
+
+**What It Does:**
+1. ✅ Installs Node.js and dependencies
+2. ✅ Installs Chrome browser
+3. ✅ Runs all tests (3 workers in parallel)
+4. ✅ Generates Allure report
+5. ✅ Deploys report to GitHub Pages
+6. ✅ Uploads artifacts (screenshots, videos)
+
+**Duration:** ~5-7 minutes
+
+### View CI Results
+
+- **Actions Tab:** https://github.com/tasyusuf/DemoTestPW/actions
+- **Live Report:** https://tasyusuf.github.io/DemoTestPW/
+- **Artifacts:** Download from workflow run page
+
+### CI Configuration
+
+Key permissions in workflow:
+```yaml
+permissions:
+  contents: write    # Push to gh-pages
+  pages: write       # Deploy GitHub Pages
+  id-token: write    # Secure deployment
+```
+
+---
+
+## ✍️ Writing Tests
+
+### Basic Test Structure
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('test name', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page).toHaveTitle(/Expected/);
+});
+```
+
+### Using Page Objects
+
+```typescript
+import { test, expect } from '../fixtures/test-fixtures';
+import { TestUsers } from '../data/test-data';
+
+test('login test', async ({ loginPage, homePage }) => {
   await loginPage.navigate();
   await loginPage.login(TestUsers.validUser.username, TestUsers.validUser.password);
   
@@ -211,13 +330,8 @@ test('should login successfully', async ({ loginPage, homePage }) => {
 
 ### Creating Page Objects
 
-1. Extend `BasePage` class
-2. Define locators in constructor
-3. Create action methods
-4. Add assertion helpers
-
-Example:
 ```typescript
+// pages/MyPage.ts
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 
@@ -226,131 +340,264 @@ export class MyPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.myButton = page.locator('#my-button');
+    this.myButton = page.getByRole('button', { name: 'Click' });
   }
 
-  async clickMyButton(): Promise<void> {
+  async clickButton(): Promise<void> {
     await this.myButton.click();
   }
 }
 ```
 
-## 📊 Reports
+### Locator Strategies (Best to Worst)
 
-### Playwright HTML Report
-- Generated automatically after test run
-- View with: `npm run report`
-- Location: `playwright-report/`
+```typescript
+// 1. By Role (BEST - accessible and reliable)
+page.getByRole('button', { name: 'Submit' })
 
-### Allure Report
-- Rich, interactive test reports
-- Generate with: `npm run allure:generate`
-- View with: `npm run allure:open`
-- Location: `allure-report/`
+// 2. By Label (Good for forms)
+page.getByLabel('Email')
 
-## 🔧 Configuration
+// 3. By Test ID (Best for dynamic content)
+page.getByTestId('submit-btn')
 
-### Playwright Config (`playwright.config.ts`)
-- Browser settings
-- Test timeout configurations
-- Reporter settings
-- Base URL and environment setup
+// 4. By Text
+page.getByText('Welcome')
 
-### TypeScript Config (`tsconfig.json`)
-- TypeScript compiler options
-- Module resolution
-- Path aliases
+// 5. CSS Selector (last resort)
+page.locator('.my-class')
+```
 
-### Environment Variables (`.env`)
-- `BASE_URL` - Application base URL
-- `TEST_USERNAME` - Test user username
-- `TEST_PASSWORD` - Test user password
-- `HEADLESS` - Run in headless mode
-- `CI` - CI/CD flag
+### Common Assertions
 
-## 🚀 CI/CD
+```typescript
+// Visibility
+await expect(element).toBeVisible()
+await expect(element).toBeHidden()
 
-### GitHub Actions
-- Workflow file: `.github/workflows/playwright.yml`
-- Runs on push and pull requests
-- Multi-browser testing in parallel
-- Automatic Allure report generation
-- Deploys reports to GitHub Pages
+// Text content
+await expect(element).toHaveText('Welcome')
+await expect(element).toContainText('Wel')
 
-### Setting up GitHub Actions
-1. Push code to GitHub repository
-2. Enable GitHub Actions in repository settings
-3. Enable GitHub Pages (Settings → Pages → Source: gh-pages)
-4. Configure secrets if needed (Settings → Secrets)
+// URL
+await expect(page).toHaveURL('/dashboard')
 
-## 📝 Best Practices
-
-1. **Use Page Object Model** - Keep test logic separate from page structure
-2. **Use Custom Fixtures** - Share common setup across tests
-3. **Centralize Test Data** - Manage test data in `src/data/`
-4. **Use Meaningful Assertions** - Make test failures clear
-5. **Keep Tests Independent** - Each test should run standalone
-6. **Use Descriptive Names** - Test and method names should explain intent
-7. **Handle Waits Properly** - Use Playwright's auto-waiting features
-8. **Take Screenshots on Failure** - Already configured in `playwright.config.ts`
-
-## 🎓 Tips for Interview
-
-1. **Preparation:**
-   - Familiarize yourself with the folder structure
-   - Run the demo tests to ensure everything works
-   - Review the Page Object Model pattern
-   - Understand the fixture system
-
-2. **During the Interview:**
-   - Start by understanding the scenario requirements
-   - Break down the scenario into smaller test cases
-   - Create page objects first, then write tests
-   - Use existing utilities and helpers
-   - Run tests frequently to verify your work
-   - Don't hesitate to ask clarifying questions
-   - Explain your thought process while coding
-
-3. **Showcase Skills:**
-   - Demonstrate POM usage
-   - Show how to organize tests logically
-   - Use assertions effectively
-   - Handle synchronization properly
-   - Show debugging skills if tests fail
-   - Generate and show Allure reports
-
-## 🤝 Contributing
-
-Feel free to extend this framework with additional features:
-- More utility functions
-- Additional page objects
-- Custom reporters
-- Performance testing
-- Visual regression testing
-- Accessibility testing
-
-## 📚 Resources
-
-### Framework Documentation
-- [FRAMEWORK_EXPLANATION.md](FRAMEWORK_EXPLANATION.md) - **Deep dive into architecture** (Start here!)
-- [CONFIG_EXPLAINED.md](CONFIG_EXPLAINED.md) - **Configuration explained** (Simple & practical)
-- [CI_EXPLAINED.md](CI_EXPLAINED.md) - **CI/CD with GitHub Actions** (Automated testing)
-- [WORKFLOW_EXPLAINED.md](WORKFLOW_EXPLAINED.md) - **Workflow file line-by-line** (How playwright.yml works)
-- [QUICKSTART.md](QUICKSTART.md) - Quick start guide for interviews
-- [PATTERNS.md](PATTERNS.md) - Common code patterns and examples
-- [COMMANDS_CHEATSHEET.md](COMMANDS_CHEATSHEET.md) - Essential commands reference
-
-### External Resources
-- [Playwright Documentation](https://playwright.dev)
-- [TypeScript Documentation](https://www.typescriptlang.org)
-- [Allure Report](https://docs.qameta.io/allure/)
-- [Page Object Model](https://playwright.dev/docs/pom)
-
-## 📧 Support
-
-If you encounter any issues or have questions, please refer to the official Playwright documentation or reach out to the team.
+// Enabled/Disabled
+await expect(button).toBeEnabled()
+await expect(button).toBeDisabled()
+```
 
 ---
 
-**Good luck with your interview! 🎉**
+## 🎯 Best Practices
 
+### 1. Use Page Object Model
+
+**Why:** Maintainability, reusability, readability
+
+```typescript
+// Bad: Direct interaction in test
+await page.locator('#email').fill('test@example.com');
+await page.locator('#password').fill('password');
+await page.locator('button[type="submit"]').click();
+
+// Good: Use page object
+await loginPage.login('test@example.com', 'password');
+```
+
+### 2. Use Auto-Waiting
+
+```typescript
+// Bad: Manual waits
+await page.waitForTimeout(5000);
+
+// Good: Playwright auto-waits
+await page.click('button');
+```
+
+### 3. Keep Tests Independent
+
+Each test should work standalone without depending on others.
+
+### 4. Use Meaningful Names
+
+```typescript
+// Bad
+test('test1', async ({ page }) => { ... });
+
+// Good
+test('should display error message on invalid login', async ({ page }) => { ... });
+```
+
+### 5. Centralize Test Data
+
+```typescript
+// data/test-data.ts
+export const TestUsers = {
+  validUser: { username: 'testuser', password: 'testpass' }
+};
+
+// In test
+await loginPage.login(TestUsers.validUser.username, TestUsers.validUser.password);
+```
+
+---
+
+## 🎓 Interview Preparation
+
+### What to Highlight
+
+1. **Framework Architecture**
+   - Page Object Model implementation
+   - Separation of concerns (pages, tests, data, utils)
+   - TypeScript for type safety
+
+2. **CI/CD Integration**
+   - Automated testing on every push
+   - Parallel execution (3 workers)
+   - Allure reports deployed to GitHub Pages
+
+3. **Best Practices**
+   - Auto-waiting (no sleeps/timeouts)
+   - Semantic locators (getByRole)
+   - Test isolation
+   - Comprehensive reporting
+
+### Common Interview Questions
+
+**Q: Why Playwright over Selenium?**
+"Playwright is modern, faster, has auto-waiting built-in, better support for SPAs, and includes features like network interception and multiple contexts out of the box."
+
+**Q: How do you handle flaky tests?**
+"I focus on root causes: use stable locators (getByRole), leverage auto-waiting, ensure proper test isolation, and configure retries only in CI (1 retry) to handle transient issues."
+
+**Q: Why Page Object Model?**
+"POM separates test logic from page structure. If UI changes, I update one place (the page object), not 50 test files. It makes tests more maintainable and readable."
+
+**Q: How do you handle different environments?**
+"I use environment variables in `.env` files and playwright.config.ts. BASE_URL can be changed for dev/staging/prod without code changes."
+
+### Demo Flow During Interview
+
+1. **Show structure**: Explain folders and their purpose
+2. **Run tests**: `npx playwright test --ui` (visual)
+3. **Show Page Object**: Open `pages/LoginPage.ts`
+4. **Show test**: Open `tests/e2e/demo.spec.ts`
+5. **Show reports**: Open Allure report URL
+6. **Show CI**: Navigate to GitHub Actions
+7. **Live coding**: Create a simple test based on scenario
+
+---
+
+## 🐛 Troubleshooting
+
+### Tests Timing Out
+
+```typescript
+// Increase timeout for specific test
+test('slow operation', async ({ page }) => {
+  test.setTimeout(120_000); // 2 minutes
+  // ... test code
+});
+
+// Or increase globally in playwright.config.ts
+timeout: 60_000
+```
+
+### Element Not Found
+
+```typescript
+// Wait for element explicitly
+await page.waitForSelector('.my-element', { state: 'visible' });
+await page.click('.my-element');
+
+// Or use better locator
+await page.getByRole('button', { name: 'Submit' }).click();
+```
+
+### CI Fails But Local Passes
+
+**Common causes:**
+- Environment differences
+- Timing issues (CI is slower)
+- Hardcoded data
+
+**Solution:**
+```typescript
+// Use proper waits
+await page.waitForLoadState('networkidle');
+
+// Use environment variables
+baseURL: process.env.BASE_URL
+```
+
+### View Debug Logs
+
+```bash
+# Run with debug output
+DEBUG=pw:api npx playwright test
+
+# Or use trace
+npx playwright test --trace on
+npx playwright show-trace trace.zip
+```
+
+---
+
+## 📚 Resources
+
+### Official Documentation
+- [Playwright Docs](https://playwright.dev)
+- [TypeScript Docs](https://www.typescriptlang.org)
+- [Allure Report](https://docs.qameta.io/allure/)
+- [GitHub Actions](https://docs.github.com/en/actions)
+
+### This Framework
+- **Repository:** https://github.com/tasyusuf/DemoTestPW
+- **Live Reports:** https://tasyusuf.github.io/DemoTestPW/
+- **CI/CD Pipeline:** https://github.com/tasyusuf/DemoTestPW/actions
+
+---
+
+## 🤝 Contributing
+
+Feel free to extend this framework:
+- Add more page objects
+- Create new test scenarios
+- Improve utilities
+- Enhance reporting
+- Add visual regression testing
+- Add accessibility testing
+
+---
+
+## 📞 Support
+
+For questions or issues:
+1. Check this README
+2. Review [Playwright Documentation](https://playwright.dev/docs/intro)
+3. Check [GitHub Actions logs](https://github.com/tasyusuf/DemoTestPW/actions)
+
+---
+
+## ✨ Features
+
+- ✅ Page Object Model
+- ✅ TypeScript
+- ✅ Allure Reports
+- ✅ GitHub Actions CI/CD
+- ✅ Docker Support
+- ✅ Parallel Execution
+- ✅ Auto-waiting
+- ✅ Screenshots & Videos
+- ✅ API Testing
+- ✅ Multiple Browsers
+- ✅ Mobile Emulation Ready
+
+---
+
+**Framework Version:** 1.0.0  
+**Playwright Version:** 1.56.1  
+**Last Updated:** November 2025
+
+**Built with ❤️ for QA Technical Interviews**
