@@ -1,5 +1,16 @@
 # 🚀 Interview Commands Cheat Sheet
 
+**Print this page and keep it visible during your interview!**
+
+This is a **one-page reference** with the most essential commands you'll need. It's designed to be quick to scan and find what you need without scrolling through long documentation.
+
+## Why These Commands?
+
+- **Direct Playwright commands** (`npx playwright test`) are industry standard
+- Shows you know the **tool itself**, not just npm scripts
+- More **flexible** - you can add any CLI flags
+- **Professional** - this is what senior QA engineers use
+
 ## ⚡ Most Important Commands (Direct Playwright)
 
 ```bash

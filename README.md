@@ -2,6 +2,26 @@
 
 A comprehensive end-to-end testing framework built with Playwright and TypeScript, featuring Page Object Model, Allure reporting, Docker support, and CI/CD integration.
 
+## 📖 What is This Framework?
+
+This is a **production-ready test automation framework** designed for:
+- **Web application testing** using Playwright (supports Chrome, Firefox, Safari, Edge)
+- **API testing** with built-in HTTP client
+- **Mobile testing** with device emulation
+- **Cross-browser testing** in parallel
+- **Visual testing** with screenshots and videos
+- **CI/CD integration** for automated testing pipelines
+
+### Key Concepts Explained:
+
+- **Playwright**: Modern browser automation tool by Microsoft, faster and more reliable than Selenium
+- **TypeScript**: Adds type safety to JavaScript, catches errors before runtime
+- **Page Object Model (POM)**: Design pattern that creates an object repository for web elements, making tests maintainable
+- **Allure Report**: Beautiful, interactive test reports with charts, graphs, and detailed test execution data
+- **Fixtures**: Reusable test setup/teardown logic (like "beforeEach" but more powerful)
+- **Docker**: Containerizes tests so they run the same way on any machine
+- **CI/CD**: Automated testing in GitHub Actions - tests run automatically on every code push
+
 ## 🚀 Features
 
 - ✅ **Playwright** - Modern, fast, and reliable browser automation
@@ -311,6 +331,13 @@ Feel free to extend this framework with additional features:
 
 ## 📚 Resources
 
+### Framework Documentation
+- [FRAMEWORK_EXPLANATION.md](FRAMEWORK_EXPLANATION.md) - **Deep dive into architecture** (Start here!)
+- [QUICKSTART.md](QUICKSTART.md) - Quick start guide for interviews
+- [PATTERNS.md](PATTERNS.md) - Common code patterns and examples
+- [COMMANDS_CHEATSHEET.md](COMMANDS_CHEATSHEET.md) - Essential commands reference
+
+### External Resources
 - [Playwright Documentation](https://playwright.dev)
 - [TypeScript Documentation](https://www.typescriptlang.org)
 - [Allure Report](https://docs.qameta.io/allure/)

@@ -2,6 +2,22 @@
 
 A collection of common patterns and code snippets for quick reference during test automation.
 
+## 📚 How to Use This Guide
+
+This is your **code reference manual**. When writing tests:
+1. **Don't memorize everything** - just know where to find it
+2. **Copy and adapt** - these patterns are meant to be reused
+3. **Understand the concept** - then modify for your needs
+
+### Pattern Categories:
+- **Locators** - How to find elements on the page
+- **Actions** - How to interact with elements (click, type, etc.)
+- **Assertions** - How to verify expected results
+- **Waits** - How to handle timing and async operations
+- **Page Objects** - How to organize your code
+
+> 💡 **Tip**: During interviews, it's perfectly acceptable to reference documentation like this!
+
 ## 🔍 Locator Strategies
 
 ### Best Practices (Preferred Order)

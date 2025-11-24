@@ -1,5 +1,18 @@
 # 🚀 Quick Start Guide - Interview Preparation
 
+This guide is specifically designed for **QA technical interviews**. It focuses on the most important commands and workflows you'll need when demonstrating your skills live during a coding interview.
+
+## Why This Guide?
+
+During a technical interview, you'll typically:
+1. **Receive a test scenario** from the interviewer
+2. **Create automated tests** based on that scenario
+3. **Run the tests** and show results
+4. **Debug** if something fails
+5. **Present** your work professionally
+
+This guide helps you do all of that efficiently.
+
 ## Pre-Interview Checklist ✅
 
 ### 1. Verify Installation
