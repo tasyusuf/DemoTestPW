@@ -50,7 +50,7 @@ export default defineConfig({
   // Global settings for all tests
   use: {
     // Base URL for navigation
-    baseURL: process.env.BASE_URL || 'https://example.com',
+    baseURL: process.env.BASE_URL || 'https://the-internet.herokuapp.com',
     
     // Browser channel: Chrome locally (macOS), Chromium in Docker/CI
     // In Docker, we use Chromium because Chrome is not ARM64 compatible

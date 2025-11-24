@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-import { BASE_URL } from '../data/test-data';
 
 /**
  * Home Page Object Model - The Internet Herokuapp Secure Area
@@ -28,9 +27,10 @@ export class HomePage {
 
   /**
    * Navigate to secure area (home page)
+   * Uses baseURL from playwright.config.ts
    */
   async navigate(): Promise<void> {
-    await this.page.goto(`${BASE_URL}/secure`);
+    await this.page.goto('/secure');
   }
 
   /**

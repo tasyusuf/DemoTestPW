@@ -5,8 +5,6 @@
  * For The Internet Herokuapp (https://the-internet.herokuapp.com/login)
  */
 
-export const BASE_URL = 'https://the-internet.herokuapp.com';
-
 export const TestUsers = {
   validUser: {
     username: 'tomsmith',

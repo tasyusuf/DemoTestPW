@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-import { BASE_URL } from '../data/test-data';
 
 /**
  * Login Page Object Model - The Internet Herokuapp
@@ -32,9 +31,10 @@ export class LoginPage {
 
   /**
    * Navigate to login page
+   * Uses baseURL from playwright.config.ts
    */
   async navigate(): Promise<void> {
-    await this.page.goto(`${BASE_URL}/login`);
+    await this.page.goto('/login');
   }
 
   /**
