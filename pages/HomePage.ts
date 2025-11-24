@@ -2,36 +2,47 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 /**
- * Home Page Object Model
- * Example implementation - customize based on your application
+ * Home Page Object Model - The Internet Herokuapp Secure Area
+ * URL: https://the-internet.herokuapp.com/secure
+ * 
+ * This page is shown after successful login
  */
 export class HomePage extends BasePage {
   // Locators
-  private readonly welcomeMessage: Locator;
+  private readonly pageTitle: Locator;
   private readonly logoutButton: Locator;
-  private readonly userProfile: Locator;
+  private readonly successMessage: Locator;
+  private readonly secureAreaText: Locator;
 
   constructor(page: Page) {
     super(page);
     
-    // Initialize locators
-    this.welcomeMessage = page.locator('h1.welcome');
-    this.logoutButton = page.locator('button:has-text("Logout")');
-    this.userProfile = page.locator('.user-profile');
+    // Initialize locators for https://the-internet.herokuapp.com/secure
+    this.pageTitle = page.locator('.example h2');
+    this.logoutButton = page.locator('a[href="/logout"]');
+    this.successMessage = page.locator('#flash.success');
+    this.secureAreaText = page.locator('.example h4');
   }
 
   /**
-   * Navigate to home page
+   * Navigate to secure area (home page)
    */
   async navigate(): Promise<void> {
-    await this.goto('/');
+    await this.goto('https://the-internet.herokuapp.com/secure');
   }
 
   /**
-   * Get welcome message
+   * Get page title text
    */
-  async getWelcomeMessage(): Promise<string> {
-    return await this.welcomeMessage.textContent() || '';
+  async getPageTitle(): Promise<string> {
+    return await this.pageTitle.textContent() || '';
+  }
+
+  /**
+   * Get secure area welcome text
+   */
+  async getSecureAreaText(): Promise<string> {
+    return await this.secureAreaText.textContent() || '';
   }
 
   /**
@@ -42,10 +53,17 @@ export class HomePage extends BasePage {
   }
 
   /**
-   * Check if user is logged in
+   * Check if user is logged in (logged in = logout button visible)
    */
   async isLoggedIn(): Promise<boolean> {
-    return await this.userProfile.isVisible();
+    return await this.logoutButton.isVisible();
+  }
+
+  /**
+   * Check if success message is visible
+   */
+  async isSuccessMessageVisible(): Promise<boolean> {
+    return await this.successMessage.isVisible();
   }
 }
 

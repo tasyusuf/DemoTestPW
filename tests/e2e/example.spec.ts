@@ -1,53 +1,90 @@
 import { test, expect } from '../../fixtures/test-fixtures';
-import { TestUsers } from '../../data/test-data';
+import { TestUsers, TestMessages } from '../../data/test-data';
 
 /**
- * Example E2E Test Suite
- * This demonstrates the framework usage with Page Object Model
+ * Login Test Suite - The Internet Herokuapp
  * 
- * NOTE: These are TEMPLATE tests showing the framework structure.
- * They are skipped by default because they test non-existent pages.
+ * Demonstrates Page Object Model pattern with real website
+ * Website: https://the-internet.herokuapp.com/login
  * 
- * TO USE:
- * 1. Remove .skip from the tests below
- * 2. Update baseURL in .env to your actual application
- * 3. Update page object selectors to match your app
- * 4. Customize test scenarios for your requirements
+ * Valid credentials:
+ * - Username: tomsmith
+ * - Password: SuperSecretPassword!
+ * 
+ * Tests:
+ * - Login page accessibility
+ * - Invalid login attempts
+ * - Successful login
+ * - Logout functionality
  */
 
-test.describe.skip('Example Test Suite', () => {
-  test.beforeEach(async ({ page }) => {
-    // Setup: Navigate to base URL before each test
-    await page.goto('/');
-  });
+test.describe('Login Test Suite - The Internet Herokuapp', () => {
 
-  test('should have correct page title', async ({ page }) => {
-    // This is a simple example test
-    await expect(page).toHaveTitle(/Example/);
-  });
-
-  test('should navigate to login page', async ({ loginPage }) => {
-    // Using custom fixture
+  test('should load login page successfully', async ({ loginPage }) => {
     await loginPage.navigate();
+    
+    // Verify URL
     await expect(loginPage['page']).toHaveURL(/.*login/);
+    
+    // Verify page title
+    await expect(loginPage['page']).toHaveTitle(/The Internet/);
+    
+    // Verify login button is enabled
+    const isEnabled = await loginPage.isLoginButtonEnabled();
+    expect(isEnabled).toBeTruthy();
   });
 
-  test('should display error on invalid login', async ({ loginPage }) => {
+  test('should display error message with invalid username', async ({ loginPage }) => {
     await loginPage.navigate();
+    
+    // Attempt login with invalid credentials
     await loginPage.login(TestUsers.invalidUser.username, TestUsers.invalidUser.password);
     
     // Assert error message is visible
     const hasError = await loginPage.isErrorMessageVisible();
     expect(hasError).toBeTruthy();
+    
+    // Verify error message content
+    const errorText = await loginPage.getErrorMessage();
+    expect(errorText).toContain('invalid');
   });
 
   test('should successfully login with valid credentials', async ({ loginPage, homePage }) => {
     await loginPage.navigate();
+    
+    // Login with valid credentials
     await loginPage.login(TestUsers.validUser.username, TestUsers.validUser.password);
     
-    // Assert navigation to home page
+    // Assert navigation to secure area
+    await expect(homePage['page']).toHaveURL(/.*secure/);
+    
+    // Verify user is logged in
     const isLoggedIn = await homePage.isLoggedIn();
     expect(isLoggedIn).toBeTruthy();
+    
+    // Verify page title
+    const pageTitle = await homePage.getPageTitle();
+    expect(pageTitle).toContain('Secure Area');
+  });
+
+  test('should successfully logout after login', async ({ loginPage, homePage }) => {
+    await loginPage.navigate();
+    
+    // Login first
+    await loginPage.login(TestUsers.validUser.username, TestUsers.validUser.password);
+    
+    // Verify logged in
+    await expect(homePage['page']).toHaveURL(/.*secure/);
+    
+    // Logout
+    await homePage.logout();
+    
+    // Verify redirected to login page
+    await expect(loginPage['page']).toHaveURL(/.*login/);
+    
+    // Verify success message
+    const hasSuccess = await loginPage.isSuccessMessageVisible();
+    expect(hasSuccess).toBeTruthy();
   });
 });
 

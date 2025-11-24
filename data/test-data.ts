@@ -1,33 +1,35 @@
 /**
  * Test data for E2E tests
  * Centralize test data management here
+ * 
+ * For The Internet Herokuapp (https://the-internet.herokuapp.com/login)
  */
 
 export const TestUsers = {
   validUser: {
-    username: process.env.TEST_USERNAME || 'testuser',
-    password: process.env.TEST_PASSWORD || 'testpass',
+    username: 'tomsmith',
+    password: 'SuperSecretPassword!',
   },
   invalidUser: {
-    username: 'invalid@example.com',
+    username: 'invaliduser',
     password: 'wrongpassword',
   },
-  adminUser: {
-    username: 'admin@example.com',
-    password: 'adminpass',
+  emptyCredentials: {
+    username: '',
+    password: '',
   },
 };
 
 export const TestUrls = {
-  home: '/',
-  login: '/login',
-  dashboard: '/dashboard',
-  profile: '/profile',
+  base: 'https://the-internet.herokuapp.com',
+  login: 'https://the-internet.herokuapp.com/login',
+  secure: 'https://the-internet.herokuapp.com/secure',
+  logout: 'https://the-internet.herokuapp.com/logout',
 };
 
 export const TestMessages = {
-  loginSuccess: 'Login successful',
-  loginFailed: 'Invalid credentials',
-  requiredField: 'This field is required',
+  loginSuccess: 'You logged into a secure area!',
+  loginFailed: 'Your username is invalid!',
+  logoutSuccess: 'You logged out of the secure area!',
 };
 

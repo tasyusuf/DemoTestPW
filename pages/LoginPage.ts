@@ -2,8 +2,12 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 /**
- * Login Page Object Model
- * Example implementation - customize based on your application
+ * Login Page Object Model - The Internet Herokuapp
+ * URL: https://the-internet.herokuapp.com/login
+ * 
+ * Valid credentials:
+ * - Username: tomsmith
+ * - Password: SuperSecretPassword!
  */
 export class LoginPage extends BasePage {
   // Locators
@@ -11,22 +15,24 @@ export class LoginPage extends BasePage {
   private readonly passwordInput: Locator;
   private readonly loginButton: Locator;
   private readonly errorMessage: Locator;
+  private readonly successMessage: Locator;
 
   constructor(page: Page) {
     super(page);
     
-    // Initialize locators
+    // Initialize locators for https://the-internet.herokuapp.com/login
     this.usernameInput = page.locator('#username');
     this.passwordInput = page.locator('#password');
     this.loginButton = page.locator('button[type="submit"]');
-    this.errorMessage = page.locator('.error-message');
+    this.errorMessage = page.locator('#flash');
+    this.successMessage = page.locator('#flash.success');
   }
 
   /**
    * Navigate to login page
    */
   async navigate(): Promise<void> {
-    await this.goto('/login');
+    await this.goto('https://the-internet.herokuapp.com/login');
   }
 
   /**
@@ -57,6 +63,13 @@ export class LoginPage extends BasePage {
    */
   async isLoginButtonEnabled(): Promise<boolean> {
     return await this.loginButton.isEnabled();
+  }
+
+  /**
+   * Check if success message is visible
+   */
+  async isSuccessMessageVisible(): Promise<boolean> {
+    return await this.successMessage.isVisible();
   }
 }
 
