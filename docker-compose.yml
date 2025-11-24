@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
+      # Mount output directories to host
       - ./test-results:/app/test-results
       - ./playwright-report:/app/playwright-report
       - ./allure-results:/app/allure-results
@@ -13,4 +14,19 @@ services:
       - BASE_URL=${BASE_URL:-https://example.com}
       - CI=true
     command: npm test
+
+  # Alternative: Run tests in UI mode (requires X11 forwarding)
+  playwright-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+    environment:
+      - DISPLAY=${DISPLAY}
+      - BASE_URL=${BASE_URL:-https://example.com}
+    command: npm run test:headed
+    profiles: ["ui"]  # Only runs when explicitly called
 

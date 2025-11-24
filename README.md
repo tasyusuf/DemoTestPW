@@ -15,6 +15,7 @@ A production-ready end-to-end testing framework built with Playwright and TypeSc
 - [Project Structure](#-project-structure)
 - [Installation](#-installation)
 - [Running Tests](#-running-tests)
+- [Docker Usage](#-docker-usage)
 - [Viewing Reports](#-viewing-reports)
 - [Configuration](#-configuration)
 - [CI/CD](#-cicd)
@@ -179,6 +180,106 @@ npx playwright test tests/api
 
 # Specific file
 npx playwright test tests/e2e/demo.spec.ts
+```
+
+---
+
+## 🐳 Docker Usage
+
+Run tests in Docker containers for consistency across environments.
+
+### Quick Start with Docker
+
+```bash
+# Using Docker Compose (recommended)
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+# View logs
+docker-compose logs -f playwright-tests
+
+# Stop containers
+docker-compose down
+```
+
+### Using Docker Commands Directly
+
+```bash
+# Build image
+docker build -t playwright-tests .
+
+# Run tests with volume mounts
+docker run --rm \
+  -v $(pwd)/test-results:/app/test-results \
+  -v $(pwd)/playwright-report:/app/playwright-report \
+  -v $(pwd)/allure-results:/app/allure-results \
+  playwright-tests
+```
+
+### Run Specific Tests in Docker
+
+```bash
+# E2E tests only
+docker-compose run playwright-tests npm run test:e2e
+
+# API tests only
+docker-compose run playwright-tests npm run test:api
+
+# Specific test file
+docker-compose run playwright-tests npx playwright test tests/e2e/demo.spec.ts
+
+# Interactive shell
+docker-compose run playwright-tests sh
+```
+
+### Environment Variables
+
+Override BASE_URL or other variables:
+
+```bash
+# Set environment variable
+BASE_URL=https://staging.app.com docker-compose up
+
+# Or create .env file:
+echo "BASE_URL=https://staging.app.com" > .env
+docker-compose up
+```
+
+### View Reports After Docker Run
+
+Reports are automatically saved to your local folders:
+
+```bash
+# View Playwright report
+npx playwright show-report
+
+# View Allure report
+allure serve allure-results
+```
+
+### Benefits of Docker
+
+- ✅ **Consistent environment** - Same setup everywhere
+- ✅ **Isolated** - Doesn't affect local machine  
+- ✅ **CI/CD ready** - Same container locally and in pipeline
+- ✅ **No local browser install** - Everything in container
+- ✅ **Portable** - Works on any machine with Docker
+
+### Troubleshooting Docker
+
+```bash
+# Rebuild from scratch
+docker-compose down
+docker-compose build --no-cache
+docker-compose up
+
+# Check logs
+docker-compose logs playwright-tests
+
+# Clean up Docker
+docker system prune -a
 ```
 
 ---
