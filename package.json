@@ -10,6 +10,8 @@
     "test:debug": "playwright test --debug",
     "test:e2e": "playwright test tests/e2e",
     "test:api": "playwright test tests/api",
+    "test:report": "npm run allure:generate && npm run allure:open",
+    "test:full": "npm test && npm run allure:generate && npm run allure:open",
     "report": "playwright show-report",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
