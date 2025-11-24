@@ -93,12 +93,13 @@ export default defineConfig({
     // Uncomment for Firefox testing
     // {
     //   name: 'firefox',
-    //   use: { channel: 'firefox' },
+    //   use: { ...devices['Desktop Firefox'] },
     // },
     
     // Uncomment for Safari testing (Mac only)
     // {
     //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
     // },
   ],
 });
