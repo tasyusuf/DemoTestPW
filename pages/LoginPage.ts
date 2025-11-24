@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from './BasePage';
 import { BASE_URL } from '../data/test-data';
 
 /**
@@ -10,16 +9,18 @@ import { BASE_URL } from '../data/test-data';
  * - Username: tomsmith
  * - Password: SuperSecretPassword!
  */
-export class LoginPage extends BasePage {
+export class LoginPage {
+  readonly page: Page;
+  
   // Locators
-  private readonly usernameInput: Locator;
-  private readonly passwordInput: Locator;
-  private readonly loginButton: Locator;
-  private readonly errorMessage: Locator;
-  private readonly successMessage: Locator;
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly loginButton: Locator;
+  readonly errorMessage: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
-    super(page);
+    this.page = page;
     
     // Initialize locators
     this.usernameInput = page.locator('#username');
@@ -33,7 +34,7 @@ export class LoginPage extends BasePage {
    * Navigate to login page
    */
   async navigate(): Promise<void> {
-    await this.goto(`${BASE_URL}/login`);
+    await this.page.goto(`${BASE_URL}/login`);
   }
 
   /**

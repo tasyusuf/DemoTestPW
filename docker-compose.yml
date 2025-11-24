@@ -4,7 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      # Mount output directories to host
       - ./test-results:/app/test-results
       - ./playwright-report:/app/playwright-report
       - ./allure-results:/app/allure-results

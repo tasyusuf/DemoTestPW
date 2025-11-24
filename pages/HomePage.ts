@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-import { BasePage } from './BasePage';
 import { BASE_URL } from '../data/test-data';
 
 /**
@@ -8,15 +7,17 @@ import { BASE_URL } from '../data/test-data';
  * 
  * This page is shown after successful login
  */
-export class HomePage extends BasePage {
+export class HomePage {
+  readonly page: Page;
+  
   // Locators
-  private readonly pageTitle: Locator;
-  private readonly logoutButton: Locator;
-  private readonly successMessage: Locator;
-  private readonly secureAreaText: Locator;
+  readonly pageTitle: Locator;
+  readonly logoutButton: Locator;
+  readonly successMessage: Locator;
+  readonly secureAreaText: Locator;
 
   constructor(page: Page) {
-    super(page);
+    this.page = page;
     
     // Initialize locators
     this.pageTitle = page.locator('.example h2');
@@ -29,7 +30,7 @@ export class HomePage extends BasePage {
    * Navigate to secure area (home page)
    */
   async navigate(): Promise<void> {
-    await this.goto(`${BASE_URL}/secure`);
+    await this.page.goto(`${BASE_URL}/secure`);
   }
 
   /**
