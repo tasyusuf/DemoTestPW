@@ -1,112 +1,101 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 import * as dotenv from 'dotenv';
 
 // Load environment variables from .env file
 dotenv.config();
 
 /**
- * Playwright configuration for E2E testing
- * See https://playwright.dev/docs/test-configuration
+ * Playwright Configuration
+ * 
+ * Simple, practical configuration for E2E testing
+ * Optimized for both local development and CI/CD
+ * 
+ * Key configurations:
+ * - Uses Chrome by default (most common browser)
+ * - Parallel execution for speed
+ * - Allure + HTML reporting
+ * - Automatic screenshots/traces on failure
+ * - Environment-based settings (local vs CI)
  */
 export default defineConfig({
+  // Test directory
   testDir: './tests',
   
-  /* Run tests in files in parallel */
+  // Test timeout (45 seconds per test)
+  timeout: 45_000,
+  
+  // Run tests in parallel
   fullyParallel: true,
   
-  /* Fail the build on CI if you accidentally left test.only in the source code */
+  // Fail build if test.only is committed (CI only)
   forbidOnly: !!process.env.CI,
   
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  // Retries: 0 locally, 1 in CI (for flaky tests)
+  retries: process.env.CI ? 1 : 0,
   
-  /* Number of workers on CI and locally */
-  workers: process.env.CI ? 2 : undefined,
+  // Workers: 3 in CI, 1 locally (for debugging)
+  workers: process.env.CI ? 3 : 1,
   
-  /* Reporter configuration */
+  // Reporters
   reporter: [
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/junit.xml' }],
-    ['list'],
-    ['allure-playwright', {
-      detail: true,
-      outputFolder: 'allure-results',
-      suiteTitle: true,
-      environmentInfo: {
-        E2E_NODE_VERSION: process.version,
-        E2E_OS: process.platform,
-      }
+    ['list'], // Console output
+    ['html', { open: 'never' }], // HTML report
+    ['allure-playwright', { 
+      resultsDir: 'allure-results', 
+      detail: true, 
+      suiteTitle: false 
     }],
   ],
   
-  /* Shared settings for all the projects below */
+  // Global settings for all tests
   use: {
-    /* Base URL to use in actions like `await page.goto('/')` */
+    // Base URL for navigation
     baseURL: process.env.BASE_URL || 'https://example.com',
     
-    /* Collect trace when retrying the failed test */
-    trace: 'on-first-retry',
+    // Browser channel (use Chrome)
+    channel: 'chrome',
     
-    /* Screenshot on failure */
+    // Viewport: maximized locally, 1920x1080 in CI
+    viewport: process.env.CI ? { width: 1920, height: 1080 } : null,
+    
+    // Launch options: maximize window locally
+    launchOptions: process.env.CI ? undefined : { 
+      args: ['--start-maximized'] 
+    },
+    
+    // Trace: keep only on failure (for debugging)
+    trace: 'retain-on-failure',
+    
+    // Screenshots: only on failure
     screenshot: 'only-on-failure',
     
-    /* Video on failure */
+    // Videos: retain on failure
     video: 'retain-on-failure',
     
-    /* Browser viewport */
-    viewport: { width: 1280, height: 720 },
-    
-    /* Action timeout */
-    actionTimeout: 10000,
-    
-    /* Navigation timeout */
-    navigationTimeout: 30000,
+    // Timeouts
+    actionTimeout: 10_000, // 10 seconds for actions
+    navigationTimeout: 30_000, // 30 seconds for navigation
   },
 
-  /* Configure projects for major browsers */
+  // Projects (browsers)
+  // By default: Chrome only
+  // Uncomment others if needed for cross-browser testing
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { channel: 'chrome' },
     },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-
-    /* Test against mobile viewports */
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
-
-    /* Test against branded browsers */
+    
+    // Uncomment for Firefox testing
     // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //   name: 'firefox',
+    //   use: { channel: 'firefox' },
     // },
+    
+    // Uncomment for Safari testing (Mac only)
     // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    //   name: 'webkit',
     // },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
 

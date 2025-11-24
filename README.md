@@ -333,6 +333,7 @@ Feel free to extend this framework with additional features:
 
 ### Framework Documentation
 - [FRAMEWORK_EXPLANATION.md](FRAMEWORK_EXPLANATION.md) - **Deep dive into architecture** (Start here!)
+- [CONFIG_EXPLAINED.md](CONFIG_EXPLAINED.md) - **Configuration explained** (Simple & practical)
 - [QUICKSTART.md](QUICKSTART.md) - Quick start guide for interviews
 - [PATTERNS.md](PATTERNS.md) - Common code patterns and examples
 - [COMMANDS_CHEATSHEET.md](COMMANDS_CHEATSHEET.md) - Essential commands reference
