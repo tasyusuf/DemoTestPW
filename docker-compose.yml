@@ -12,19 +12,3 @@ services:
       - BASE_URL=${BASE_URL:-https://example.com}
       - CI=true
     command: npm test
-
-  # Alternative: Run tests in headed mode (requires X11 forwarding on Linux)
-  # Uncomment if needed for debugging with visible browser
-  # playwright-headed:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./test-results:/app/test-results
-  #     - ./playwright-report:/app/playwright-report
-  #     - ./allure-results:/app/allure-results
-  #   environment:
-  #     - BASE_URL=${BASE_URL:-https://example.com}
-  #   command: npm run test:headed
-  #   profiles: ["ui"]
-
