@@ -1,9 +1,10 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { BASE_URL } from '../data/test-data';
 
 /**
  * Home Page Object Model - The Internet Herokuapp Secure Area
- * URL: https://the-internet.herokuapp.com/secure
+ * URL: /secure
  * 
  * This page is shown after successful login
  */
@@ -17,7 +18,7 @@ export class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
     
-    // Initialize locators for https://the-internet.herokuapp.com/secure
+    // Initialize locators
     this.pageTitle = page.locator('.example h2');
     this.logoutButton = page.locator('a[href="/logout"]');
     this.successMessage = page.locator('#flash.success');
@@ -28,7 +29,7 @@ export class HomePage extends BasePage {
    * Navigate to secure area (home page)
    */
   async navigate(): Promise<void> {
-    await this.goto('https://the-internet.herokuapp.com/secure');
+    await this.goto(`${BASE_URL}/secure`);
   }
 
   /**

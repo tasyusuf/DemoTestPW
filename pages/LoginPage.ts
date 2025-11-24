@@ -1,9 +1,10 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { BASE_URL } from '../data/test-data';
 
 /**
  * Login Page Object Model - The Internet Herokuapp
- * URL: https://the-internet.herokuapp.com/login
+ * URL: /login
  * 
  * Valid credentials:
  * - Username: tomsmith
@@ -20,7 +21,7 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
     
-    // Initialize locators for https://the-internet.herokuapp.com/login
+    // Initialize locators
     this.usernameInput = page.locator('#username');
     this.passwordInput = page.locator('#password');
     this.loginButton = page.locator('button[type="submit"]');
@@ -32,7 +33,7 @@ export class LoginPage extends BasePage {
    * Navigate to login page
    */
   async navigate(): Promise<void> {
-    await this.goto('https://the-internet.herokuapp.com/login');
+    await this.goto(`${BASE_URL}/login`);
   }
 
   /**

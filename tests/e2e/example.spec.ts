@@ -1,5 +1,5 @@
 import { test, expect } from '../../fixtures/test-fixtures';
-import { TestUsers, TestMessages } from '../../data/test-data';
+import { TestUsers } from '../../data/test-data';
 
 /**
  * Login Test Suite - The Internet Herokuapp
