@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1816","should successfully logout after login","chromium","Mon Nov 24 14:29:30 UTC 2025","passed","Mon Nov 24 14:29:31 UTC 2025","Login Test Suite - The Internet Herokuapp","","",""
+"","1853","should successfully login with valid credentials","chromium","Mon Nov 24 14:29:27 UTC 2025","passed","Mon Nov 24 14:29:29 UTC 2025","Login Test Suite - The Internet Herokuapp","","",""
+"","1879","should display error message with invalid username","chromium","Mon Nov 24 14:29:27 UTC 2025","passed","Mon Nov 24 14:29:29 UTC 2025","Login Test Suite - The Internet Herokuapp","","",""
+"","209","should create a new post","chromium","Mon Nov 24 14:29:27 UTC 2025","passed","Mon Nov 24 14:29:27 UTC 2025","API Tests - Post Resource","","",""
+"","1531","lets do first","chromium","Mon Nov 24 14:29:30 UTC 2025","passed","Mon Nov 24 14:29:31 UTC 2025","my test","","",""
+"","1553","should load login page successfully","chromium","Mon Nov 24 14:29:27 UTC 2025","passed","Mon Nov 24 14:29:29 UTC 2025","Login Test Suite - The Internet Herokuapp","","",""
