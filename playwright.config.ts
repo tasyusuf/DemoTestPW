@@ -18,64 +18,31 @@ dotenv.config();
  * - Environment-based settings (local vs CI)
  */
 export default defineConfig({
-  // Test directory
   testDir: './tests',
-  
-  // Test timeout (45 seconds per test)
   timeout: 45_000,
-  
-  // Run tests in parallel
   fullyParallel: true,
-  
-  // Fail build if test.only is committed (CI only)
-  forbidOnly: !!process.env.CI,
-  
-  // Retries: 0 locally, 1 in CI (for flaky tests)
   retries: process.env.CI ? 1 : 0,
-  
-  // Workers: 3 in CI, 1 locally (for debugging)
   workers: process.env.CI ? 3 : 1,
-  
-  // Reporters
   reporter: [
-    ['list'], // Console output
-    ['html', { open: 'never' }], // HTML report
+    ['list'],
+    ['html', { open: 'never' }],
     ['allure-playwright', { 
       resultsDir: 'allure-results', 
       detail: true, 
       suiteTitle: false 
     }],
   ],
-  
-  // Global settings for all tests
   use: {
-    // Base URL for navigation
     baseURL: process.env.BASE_URL || 'https://the-internet.herokuapp.com',
-    
-    // Browser channel: Chrome locally (macOS), Chromium in Docker/CI
-    // In Docker, we use Chromium because Chrome is not ARM64 compatible
     channel: process.env.CI ? undefined : 'chrome',
-    
-    // Viewport: maximized locally, 1920x1080 in CI
     viewport: process.env.CI ? { width: 1920, height: 1080 } : null,
-    
-    // Launch options: maximize window locally
     launchOptions: process.env.CI ? undefined : { 
       args: ['--start-maximized'] 
     },
-    
-    // Trace: keep only on failure (for debugging)
     trace: 'retain-on-failure',
-    
-    // Screenshots: only on failure
     screenshot: 'only-on-failure',
-    
-    // Videos: retain on failure
-    video: 'retain-on-failure',
-    
-    // Timeouts
-    actionTimeout: 10_000, // 10 seconds for actions
-    navigationTimeout: 30_000, // 30 seconds for navigation
+    actionTimeout: 10_000,
+    navigationTimeout: 10_000,
   },
 
   // Projects (browsers)
@@ -90,7 +57,7 @@ export default defineConfig({
       },
     },
     
-    // Uncomment for Firefox testing
+    // for Firefox testing
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
