@@ -451,70 +451,31 @@ import { TestUsers } from '../data/test-data';
 test('login test', async ({ loginPage, homePage }) => {
   await loginPage.navigate();
   await loginPage.login(TestUsers.validUser.username, TestUsers.validUser.password);
-  
-  const isLoggedIn = await homePage.isLoggedIn();
-  expect(isLoggedIn).toBeTruthy();
+  expect(await homePage.isLoggedIn()).toBeTruthy();
 });
 ```
 
-### Creating Page Objects
+### Locator Strategies (Priority Order)
+
+1. **`getByRole()`** - Best for accessibility (buttons, links, etc.)
+2. **`getByLabel()`** - Good for form fields
+3. **`getByTestId()`** - Reliable for dynamic content
+4. **`getByText()`** - Quick for static text
+5. **CSS/XPath** - Last resort (fragile)
+
+### Common Patterns
 
 ```typescript
-// pages/MyPage.ts
-import { Page, Locator } from '@playwright/test';
-import { BasePage } from './BasePage';
+// Assertions
+await expect(page).toHaveURL('/dashboard');
+await expect(element).toBeVisible();
+await expect(element).toHaveText('Welcome');
 
-export class MyPage extends BasePage {
-  private readonly myButton: Locator;
-
-  constructor(page: Page) {
-    super(page);
-    this.myButton = page.getByRole('button', { name: 'Click' });
-  }
-
-  async clickButton(): Promise<void> {
-    await this.myButton.click();
-  }
-}
+// Wait for network/state
+await page.waitForLoadState('networkidle');
 ```
 
-### Locator Strategies (Best to Worst)
-
-```typescript
-// 1. By Role (BEST - accessible and reliable)
-page.getByRole('button', { name: 'Submit' })
-
-// 2. By Label (Good for forms)
-page.getByLabel('Email')
-
-// 3. By Test ID (Best for dynamic content)
-page.getByTestId('submit-btn')
-
-// 4. By Text
-page.getByText('Welcome')
-
-// 5. CSS Selector (last resort)
-page.locator('.my-class')
-```
-
-### Common Assertions
-
-```typescript
-// Visibility
-await expect(element).toBeVisible()
-await expect(element).toBeHidden()
-
-// Text content
-await expect(element).toHaveText('Welcome')
-await expect(element).toContainText('Wel')
-
-// URL
-await expect(page).toHaveURL('/dashboard')
-
-// Enabled/Disabled
-await expect(button).toBeEnabled()
-await expect(button).toBeDisabled()
-```
+**💡 Tip:** Check existing tests in `tests/e2e/` for real examples.
 
 ---
 
