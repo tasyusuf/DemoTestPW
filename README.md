@@ -21,7 +21,6 @@ A production-ready end-to-end testing framework built with Playwright and TypeSc
 - [CI/CD](#-cicd)
 - [Writing Tests](#-writing-tests)
 - [Best Practices](#-best-practices)
-- [Interview Preparation](#-interview-preparation)
 - [Troubleshooting](#-troubleshooting)
 
 ---
@@ -213,101 +212,6 @@ docker-compose logs -f playwright-tests
 
 # Stop containers
 docker-compose down
-```
-
-### Using Docker Commands Directly
-
-```bash
-# Build image
-docker build -t playwright-tests .
-
-# Run tests with volume mounts
-docker run --rm \
-  -v $(pwd)/test-results:/app/test-results \
-  -v $(pwd)/playwright-report:/app/playwright-report \
-  -v $(pwd)/allure-results:/app/allure-results \
-  playwright-tests
-```
-
-### Run Specific Tests in Docker
-
-```bash
-# E2E tests only
-docker-compose run playwright-tests npm run test:e2e
-
-# API tests only
-docker-compose run playwright-tests npm run test:api
-
-# Specific test file
-docker-compose run playwright-tests npx playwright test tests/e2e/demo.spec.ts
-
-# Interactive shell
-docker-compose run playwright-tests sh
-```
-
-### Environment Variables
-
-Override BASE_URL or other variables:
-
-```bash
-# Set environment variable
-BASE_URL=https://staging.app.com docker-compose up
-
-# Or create .env file:
-echo "BASE_URL=https://staging.app.com" > .env
-docker-compose up
-```
-
-### View Reports After Docker Run
-
-Reports are automatically saved to your local folders via Docker volumes:
-
-```bash
-# 🌟 RECOMMENDED: Run Docker tests + view Allure report (one command)
-npm run docker:full
-
-# Or step-by-step:
-
-# 1. Run tests in Docker
-npm run docker:test
-# or: docker-compose up --build
-
-# 2. Generate & view Allure report
-npm run docker:report
-# or: npm run allure:generate && npm run allure:open
-
-# View Playwright report
-npm run report
-# or: npx playwright show-report
-
-# Generate Allure HTML report only
-npm run allure:generate
-
-# Open existing Allure report
-npm run allure:open
-```
-
-### Benefits of Docker
-
-- ✅ **Consistent environment** - Same setup everywhere
-- ✅ **Isolated** - Doesn't affect local machine  
-- ✅ **CI/CD ready** - Same container locally and in pipeline
-- ✅ **No local browser install** - Everything in container
-- ✅ **Portable** - Works on any machine with Docker
-
-### Troubleshooting Docker
-
-```bash
-# Rebuild from scratch
-docker-compose down
-docker-compose build --no-cache
-docker-compose up
-
-# Check logs
-docker-compose logs playwright-tests
-
-# Clean up Docker
-docker system prune -a
 ```
 
 ---
@@ -533,52 +437,6 @@ await loginPage.login(TestUsers.validUser.username, TestUsers.validUser.password
 
 ---
 
-## 🎓 Interview Preparation
-
-### What to Highlight
-
-1. **Framework Architecture**
-   - Page Object Model implementation
-   - Separation of concerns (pages, tests, data, utils)
-   - TypeScript for type safety
-
-2. **CI/CD Integration**
-   - Automated testing on every push
-   - Parallel execution (3 workers)
-   - Allure reports deployed to GitHub Pages
-
-3. **Best Practices**
-   - Auto-waiting (no sleeps/timeouts)
-   - Semantic locators (getByRole)
-   - Test isolation
-   - Comprehensive reporting
-
-### Common Interview Questions
-
-**Q: Why Playwright over Selenium?**
-"Playwright is modern, faster, has auto-waiting built-in, better support for SPAs, and includes features like network interception and multiple contexts out of the box."
-
-**Q: How do you handle flaky tests?**
-"I focus on root causes: use stable locators (getByRole), leverage auto-waiting, ensure proper test isolation, and configure retries only in CI (1 retry) to handle transient issues."
-
-**Q: Why Page Object Model?**
-"POM separates test logic from page structure. If UI changes, I update one place (the page object), not 50 test files. It makes tests more maintainable and readable."
-
-**Q: How do you handle different environments?**
-"I use environment variables in `.env` files and playwright.config.ts. BASE_URL can be changed for dev/staging/prod without code changes."
-
-### Demo Flow During Interview
-
-1. **Show structure**: Explain folders and their purpose
-2. **Run tests**: `npx playwright test --ui` (visual)
-3. **Show Page Object**: Open `pages/LoginPage.ts`
-4. **Show test**: Open `tests/e2e/demo.spec.ts`
-5. **Show reports**: Open Allure report URL
-6. **Show CI**: Navigate to GitHub Actions
-7. **Live coding**: Create a simple test based on scenario
-
----
-
 ## 🐛 Troubleshooting
 
 ### Tests Timing Out
@@ -689,5 +547,3 @@ For questions or issues:
 **Framework Version:** 1.0.0  
 **Playwright Version:** 1.56.1  
 **Last Updated:** November 2025
-
-**Built with ❤️ for QA Technical Interviews**
